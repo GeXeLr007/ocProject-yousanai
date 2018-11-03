@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dulp.xyz.mapper.TAuthUserMapper">
+  <resultMap id="BaseResultMap" type="com.dulp.xyz.pojo.TAuthUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="realname" jdbcType="VARCHAR" property="realname" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="gender" jdbcType="BIT" property="gender" />
+    <result column="header" jdbcType="VARCHAR" property="header" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="college_code" jdbcType="VARCHAR" property="collegeCode" />
+    <result column="college_name" jdbcType="VARCHAR" property="collegeName" />
+    <result column="cert_no" jdbcType="VARCHAR" property="certNo" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="wechat_id" jdbcType="VARCHAR" property="wechatId" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="weight" jdbcType="INTEGER" property="weight" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="del" jdbcType="BIT" property="del" />
+  </resultMap>
+  <sql id="All_Columns">
+		realname, username, password, gender, header, mobile,
+		status, birthday, education, college_code, college_name, cert_no, title, sign,
+		open_id, wechat_id, qq, login_time, ip, province,
+		city, district, weight, create_time, create_user, update_time, update_user,
+		del, id
+	</sql>
+  <select id="queryRecomd" parameterType="com.dulp.xyz.pojo.TAuthUser" resultMap="BaseResultMap">
+    SELECT
+    <include refid="All_Columns" />
+    FROM t_auth_user
+    ORDER BY weight DESC
+    LIMIT 2
+  </select>
+  <select id="getByUsername" parameterType="java.lang.String"  resultMap="BaseResultMap">
+    SELECT
+    <include refid="All_Columns"  />
+    FROM t_auth_user
+    WHERE username = #{username, jdbcType=VARCHAR}
+    AND DEL = 0
+  </select>
+</mapper>

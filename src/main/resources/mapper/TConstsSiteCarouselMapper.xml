@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dulp.xyz.mapper.TConstsSiteCarouselMapper" >
+  <resultMap id="BaseResultMap" type="com.dulp.xyz.pojo.TConstsSiteCarousel" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="picture" property="picture" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="weight" property="weight" jdbcType="INTEGER" />
+    <result column="enable" property="enable" jdbcType="BIT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="del" property="del" jdbcType="BIT" />
+  </resultMap>
+
+  <select id="queryCarousels" resultMap="BaseResultMap">
+    SELECT name, picture, url, weight, enable, create_time, create_user,
+		update_time, update_user, del, id
+    FROM t_consts_site_carousel
+    WHERE enable = 1
+    ORDER BY weight DESC
+  </select>
+</mapper>
