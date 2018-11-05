@@ -1,5 +1,7 @@
 package com.dulp.xyz.common.util;
 
+import com.dulp.xyz.common.result.CodeMsg;
+
 /**
  * @Description: 自定义响应数据结构
  * 				这个类是提供给门户，ios，安卓，微信商城用的
@@ -22,8 +24,6 @@ public class IMoocJSONResult {
     // 响应中的数据
     private Object data;
     
-    private String ok;	// 不使用
-
     public static IMoocJSONResult build(Integer status, String msg, Object data) {
         return new IMoocJSONResult(status, msg, data);
     }
@@ -34,6 +34,10 @@ public class IMoocJSONResult {
 
     public static IMoocJSONResult ok() {
         return new IMoocJSONResult(null);
+    }
+    
+    public static IMoocJSONResult error(CodeMsg cm) {
+        return new IMoocJSONResult(cm.getCode(), cm.getMsg(), null);
     }
     
     public static IMoocJSONResult errorMsg(String msg) {
@@ -95,13 +99,5 @@ public class IMoocJSONResult {
     public void setData(Object data) {
         this.data = data;
     }
-
-	public String getOk() {
-		return ok;
-	}
-
-	public void setOk(String ok) {
-		this.ok = ok;
-	}
 
 }
