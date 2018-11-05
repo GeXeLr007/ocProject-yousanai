@@ -1,5 +1,7 @@
 package com.dulp.xyz.common.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.*;
 import java.net.URI;
 import java.util.HashMap;
@@ -13,13 +15,13 @@ public class PropertiesUtil {
 	/*设置默认的properties文件，方便操作*/
 	public static final String DEFAULT_PROPERTIES_FILE="application.properties";
 	
-	public static Object getProperty(String file,String key){
-		Properties prop = getProperties(file);
-		if(prop != null && prop.get(key) != null){
-			return prop.get(key);
-		}
-		return null;
-	}
+//	public static Object getProperty(String file,String key){
+//		Properties prop = getProperties(file);
+//		if(prop != null && prop.get(key) != null){
+//			return prop.get(key);
+//		}
+//		return null;
+//	}
     
     public static Properties getProperties(String file){
     	try {
@@ -81,6 +83,15 @@ public class PropertiesUtil {
 			return prop.getProperty(key);
 		}
 		return null;
+    }
+
+    public static String getProperty(String key,String defaultValue){
+        Properties prop = getDefaultProperties();
+        String value = prop.getProperty(key.trim());
+        if(StringUtils.isBlank(value)){
+            value = defaultValue;
+        }
+        return value.trim();
     }
     
 }

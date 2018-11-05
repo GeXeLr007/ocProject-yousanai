@@ -1,8 +1,8 @@
 package com.dulp.xyz.common.util;
 
+import com.dulp.xyz.common.redis.RedisPoolUtil;
 import com.dulp.xyz.pojo.User;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +17,6 @@ public class CookieUtil {
     public final static String COOKIE_NAME = "login_token";
     public final static Integer SESSION_EXPIRE_TIME = 60 * 30;//30min
 
-    @Autowired
-    private static RedisOperator redisOperator;
 
     public static String readLoginToken(HttpServletRequest request) {
         Cookie[] cks = request.getCookies();
@@ -40,7 +38,7 @@ public class CookieUtil {
     //e:A.happymmall.com/test       cookie:domain=A.happymmall.com;path="/test"
 
     public static void writeLoginToken(HttpServletResponse response, String token, User user) {
-        redisOperator.set(token, JsonUtil.obj2String(user), SESSION_EXPIRE_TIME);
+        RedisPoolUtil.setEx(token, JsonUtil.obj2String(user), SESSION_EXPIRE_TIME);
         Cookie ck = new Cookie(COOKIE_NAME, token);
 //        ck.setDomain(COOKIE_DOMAIN);
         ck.setPath("/");//代表设置在根目录

@@ -6,7 +6,6 @@
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="open_id" jdbcType="VARCHAR" property="openId"/>
-        <result column="wechat_id" jdbcType="VARCHAR" property="wechatId"/>
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -39,7 +38,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-        id, username, password, open_id, wechat_id
+        id, username, password, open_id
     </sql>
     <select id="selectByExample" parameterType="com.dulp.xyz.pojo.UserExample" resultMap="BaseResultMap">
         select
@@ -68,12 +67,11 @@
         where id = #{id,jdbcType=VARCHAR}
     </delete>
     <insert id="insert" parameterType="com.dulp.xyz.pojo.User">
-        insert into t_user (id, username, password, open_id, wechat_id)
+        insert into t_user (id, username, password, open_id)
         values (#{id,jdbcType=VARCHAR},
                 #{username,jdbcType=VARCHAR},
                 #{password,jdbcType=VARCHAR},
-                #{openId,jdbcType=VARCHAR},
-                #{wechatId,jdbcType=VARCHAR})
+                #{openId,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.dulp.xyz.pojo.User">
         insert into t_user
@@ -90,9 +88,6 @@
             <if test="openId != null">
                 open_id,
             </if>
-            <if test="wechatId != null">
-                wechat_id,
-            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -106,9 +101,6 @@
             </if>
             <if test="openId != null">
                 #{openId,jdbcType=VARCHAR},
-            </if>
-            <if test="wechatId != null">
-                #{wechatId,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -124,30 +116,26 @@
             <if test="openId != null">
                 open_id = #{openId,jdbcType=VARCHAR},
             </if>
-            <if test="wechatId != null">
-                wechat_id = #{wechatId,jdbcType=VARCHAR},
-            </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.dulp.xyz.pojo.User">
         update t_user
-        set username  = #{username,jdbcType=VARCHAR},
-            password  = #{password,jdbcType=VARCHAR},
-            open_id   = #{openId,jdbcType=VARCHAR},
-            wechat_id = #{wechatId,jdbcType=VARCHAR}
+        set username = #{username,jdbcType=VARCHAR},
+            password = #{password,jdbcType=VARCHAR},
+            open_id  = #{openId,jdbcType=VARCHAR}
         where id = #{id,jdbcType=VARCHAR}
     </update>
-    
-    <select id="checkUsername" resultType="int" parameterType="string" >
-        select count(1) from t_user
+    <select id="checkUsername" parameterType="string" resultType="int">
+        select count(1)
+        from t_user
         where username = #{username}
     </select>
 
-    <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
+    <select id="selectLogin" parameterType="map" resultMap="BaseResultMap">
         SELECT
-#             *???//这样真的好么?答案就是,这样不好.
-        <include refid="Base_Column_List" />
+        # *???//这样真的好么?答案就是,这样不好.
+        <include refid="Base_Column_List"/>
         from t_user
         where username = #{username}
         and password = #{password}

@@ -1,4 +1,4 @@
-package com.dulp.xyz.common.util;
+package com.dulp.xyz.common.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;

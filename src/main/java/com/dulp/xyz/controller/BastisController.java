@@ -1,6 +1,6 @@
 package com.dulp.xyz.controller;
 
-import com.dulp.xyz.common.util.RedisOperator;
+import com.dulp.xyz.common.redis.RedisOperator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 

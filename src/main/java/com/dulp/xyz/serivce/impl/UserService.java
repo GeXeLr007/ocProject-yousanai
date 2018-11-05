@@ -1,6 +1,7 @@
 package com.dulp.xyz.serivce.impl;
 
 import com.dulp.xyz.common.exception.GlobalException;
+import com.dulp.xyz.common.org.n3r.idworker.Sid;
 import com.dulp.xyz.common.util.*;
 import com.dulp.xyz.mapper.UserMapper;
 import com.dulp.xyz.pojo.User;
@@ -18,8 +19,6 @@ public class UserService implements IUserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private RedisOperator redisOperator;
 
     @Override
     public IMoocJSONResult login(HttpServletRequest request, HttpServletResponse response, LoginVo loginVo) {
@@ -32,7 +31,7 @@ public class UserService implements IUserService {
             throw new GlobalException("用户名或密码错误");
         }
         //生成cookie
-        String token = request.getSession().getId();
+        String token = user.getId();
         CookieUtil.writeLoginToken(response, token, user);
         user.setPassword(StringUtils.EMPTY);
         return IMoocJSONResult.ok(user);
@@ -45,7 +44,7 @@ public class UserService implements IUserService {
             throw new GlobalException("用户名已存在");
         }
         user.setPassword(MD5Utils.getMD5Str(user.getPassword()));
-//        user.setId();
+        user.setId(Sid.nextShort());
         int cnt = userMapper.insert(user);
         if (cnt == 0) {
             throw new GlobalException("注册插入数据库失败");

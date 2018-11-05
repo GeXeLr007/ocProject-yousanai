@@ -1,6 +1,7 @@
 package com.dulp.xyz.controller;
 
 
+import com.dulp.xyz.common.access.AccessLimit;
 import com.dulp.xyz.common.util.IMoocJSONResult;
 import com.dulp.xyz.pojo.CourseQueryDto;
 import com.dulp.xyz.pojo.TAuthUser;
@@ -32,6 +33,7 @@ public class PoralController {
 
     @ApiOperation(value = "轮播区接口接口",notes = "轮播区接口的接口")
     @PostMapping(value = "/info")
+    @AccessLimit(needLogin = true)
     public IMoocJSONResult info(Integer count){
         List<TConstsSiteCarousel> carouselList =constsSiteCarouselService.queryCarousels();
 

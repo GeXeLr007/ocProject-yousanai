@@ -1,15 +1,21 @@
 package com.dulp.xyz.pojo;
 
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.NotNull;
+
 public class User {
     private String id;
 
+    @NotNull
     private String username;
 
+    @NotNull
+    @Length(min = 6)
     private String password;
 
+    @NotNull
     private String openId;
-
-    private String wechatId;
 
     public String getId() {
         return id;
@@ -41,13 +47,5 @@ public class User {
 
     public void setOpenId(String openId) {
         this.openId = openId == null ? null : openId.trim();
-    }
-
-    public String getWechatId() {
-        return wechatId;
-    }
-
-    public void setWechatId(String wechatId) {
-        this.wechatId = wechatId == null ? null : wechatId.trim();
     }
 }

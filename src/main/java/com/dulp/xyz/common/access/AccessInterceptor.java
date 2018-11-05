@@ -1,9 +1,9 @@
 package com.dulp.xyz.common.access;
 
+import com.dulp.xyz.common.redis.RedisPoolUtil;
 import com.dulp.xyz.common.util.CookieUtil;
 import com.dulp.xyz.common.util.IMoocJSONResult;
 import com.dulp.xyz.common.util.JsonUtil;
-import com.dulp.xyz.common.util.RedisOperator;
 import com.dulp.xyz.pojo.User;
 import com.dulp.xyz.serivce.IUserService;
 import org.apache.commons.lang3.StringUtils;
@@ -21,9 +21,6 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
     IUserService userService;
-
-    @Autowired
-    RedisOperator redisOperator;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -65,7 +62,7 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
             return null;
         }
         String token = StringUtils.isEmpty(paramToken) ? cookieToken : paramToken;
-        String userstr = redisOperator.get(token);
+        String userstr = RedisPoolUtil.get(token);
         User user = JsonUtil.string2Obj(userstr, User.class);
         //延长有效期
         if (user != null) {
