@@ -6,11 +6,14 @@ import com.dulp.xyz.common.util.HttpClientUtil;
 import com.dulp.xyz.common.util.IMoocJSONResult;
 import com.dulp.xyz.pojo.User;
 import com.dulp.xyz.pojo.UserCollections;
+import com.dulp.xyz.pojo.UserCourseSection;
 import com.dulp.xyz.pojo.VO.LoginVo;
 import com.dulp.xyz.pojo.VO.RegisterVo;
 import com.dulp.xyz.pojo.VO.UserCollectionsVo;
+import com.dulp.xyz.pojo.VO.UserCourseSectionVo;
 import com.dulp.xyz.serivce.IUserCollectionsService;
 import com.dulp.xyz.serivce.IUserService;
+import com.dulp.xyz.serivce.impl.UserCourseSectionService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +44,8 @@ public class UserController {
 
     @Autowired
     IUserService userService;
+    @Autowired
+    UserCourseSectionService userCourseSectionService;
 
     @RequestMapping("/register")
     public IMoocJSONResult register(@Valid RegisterVo registerVo) {
@@ -72,6 +77,18 @@ public class UserController {
         openId = new JSONObject(data).getString("openid");
         System.out.println("获得openId: " + openId);
         return IMoocJSONResult.ok(openId);
+    }
+
+    /**
+     * 我的课程
+     */
+    @RequestMapping("/course")
+    @AccessLimit
+    public IMoocJSONResult course(User user) {
+        UserCourseSection queryEntity = new UserCourseSection();
+        queryEntity.setUserId(user.getId());
+        List<UserCourseSectionVo> list = userCourseSectionService.queryPage(queryEntity);
+        return IMoocJSONResult.ok(list);
     }
 
     /**
