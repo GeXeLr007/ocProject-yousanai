@@ -126,6 +126,8 @@
             open_id  = #{openId,jdbcType=VARCHAR}
         where id = #{id,jdbcType=VARCHAR}
     </update>
+    
+    <!--自定义-->
     <select id="checkUsername" parameterType="string" resultType="int">
         select count(1)
         from t_user

@@ -1,20 +1,12 @@
 package com.dulp.xyz.pojo;
 
-import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.NotNull;
-
 public class User {
     private String id;
 
-    @NotNull
     private String username;
 
-    @NotNull
-    @Length(min = 6)
     private String password;
 
-    @NotNull
     private String openId;
 
     public String getId() {

@@ -33,7 +33,6 @@ public class PoralController {
 
     @ApiOperation(value = "轮播区接口接口",notes = "轮播区接口的接口")
     @PostMapping(value = "/info")
-    @AccessLimit(needLogin = true)
     public IMoocJSONResult info(Integer count){
         List<TConstsSiteCarousel> carouselList =constsSiteCarouselService.queryCarousels();
 

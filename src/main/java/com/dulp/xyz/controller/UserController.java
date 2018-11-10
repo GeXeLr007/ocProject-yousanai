@@ -1,22 +1,30 @@
 package com.dulp.xyz.controller;
 
+import com.dulp.xyz.common.access.AccessLimit;
 import com.dulp.xyz.common.exception.GlobalException;
 import com.dulp.xyz.common.util.HttpClientUtil;
 import com.dulp.xyz.common.util.IMoocJSONResult;
 import com.dulp.xyz.pojo.User;
+import com.dulp.xyz.pojo.UserCollections;
 import com.dulp.xyz.pojo.VO.LoginVo;
+import com.dulp.xyz.pojo.VO.RegisterVo;
+import com.dulp.xyz.pojo.VO.UserCollectionsVo;
+import com.dulp.xyz.serivce.IUserCollectionsService;
 import com.dulp.xyz.serivce.IUserService;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -29,10 +37,15 @@ public class UserController {
     private String secret;
 
     @Autowired
+    private IUserCollectionsService userCollectionsService;
+
+    @Autowired
     IUserService userService;
 
-    @RequestMapping(value = "/register")
-    public IMoocJSONResult register(@Valid User user) {
+    @RequestMapping("/register")
+    public IMoocJSONResult register(@Valid RegisterVo registerVo) {
+        User user = new User();
+        BeanUtils.copyProperties(registerVo, user);
         return userService.register(user);
     }
 
@@ -59,6 +72,17 @@ public class UserController {
         openId = new JSONObject(data).getString("openid");
         System.out.println("获得openId: " + openId);
         return IMoocJSONResult.ok(openId);
+    }
 
+    /**
+     * 我的收藏
+     */
+    @RequestMapping("/collect")
+    @AccessLimit
+    public IMoocJSONResult collect(User user) {
+        UserCollections queryEntity = new UserCollections();
+        queryEntity.setUserId(user.getId());
+        List<UserCollectionsVo> list = userCollectionsService.queryPage(queryEntity);
+        return IMoocJSONResult.ok(list);
     }
 }

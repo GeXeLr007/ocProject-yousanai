@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dulp.xyz.mapper.UserCollectionsMapper">
+    <resultMap id="BaseResultMap" type="com.dulp.xyz.pojo.UserCollections">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="object_id" jdbcType="INTEGER" property="objectId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="del" jdbcType="BIT" property="del"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, object_id, create_time, create_user, update_time, update_user, del
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user_collections
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from t_user_collections
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.dulp.xyz.pojo.UserCollections">
+        insert into t_user_collections (id, user_id, object_id, create_time, create_user, update_time, update_user, del)
+        values (#{id,jdbcType=INTEGER},
+                #{userId,jdbcType=VARCHAR},
+                #{objectId,jdbcType=INTEGER},
+                #{createTime,jdbcType=TIMESTAMP},
+                #{createUser,jdbcType=VARCHAR},
+                #{updateTime,jdbcType=TIMESTAMP},
+                #{updateUser,jdbcType=VARCHAR},
+                #{del,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" parameterType="com.dulp.xyz.pojo.UserCollections">
+        insert into t_user_collections
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="objectId != null">
+                object_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="updateUser != null">
+                update_user,
+            </if>
+            <if test="del != null">
+                del,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="objectId != null">
+                #{objectId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="del != null">
+                #{del,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dulp.xyz.pojo.UserCollections">
+        update t_user_collections
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="objectId != null">
+                object_id = #{objectId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="del != null">
+                del = #{del,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dulp.xyz.pojo.UserCollections">
+        update t_user_collections
+        set user_id     = #{userId,jdbcType=VARCHAR},
+            object_id   = #{objectId,jdbcType=INTEGER},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            create_user = #{createUser,jdbcType=VARCHAR},
+            update_time = #{updateTime,jdbcType=TIMESTAMP},
+            update_user = #{updateUser,jdbcType=VARCHAR},
+            del         = #{del,jdbcType=BIT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="queryAll" parameterType="com.dulp.xyz.pojo.UserCollections" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_user_collections
+        <trim prefix="WHERE " prefixOverrides="AND |OR ">
+            <if test="userId != null">
+                AND user_id = #{userId, jdbcType=VARCHAR}
+            </if>
+            <if test="objectId != null">
+                AND object_id = #{objectId, jdbcType=INTEGER}
+            </if>
+        </trim>
+        ORDER BY create_time DESC
+    </select>
+
+    <select id="queryPage" resultType="com.dulp.xyz.pojo.VO.UserCollectionsVo">
+        SELECT uc.object_id, uc.create_time, c.name as course_name
+        FROM t_user_collections uc,
+             t_course c
+        WHERE uc.object_id = c.id
+          and uc.user_id = #{userId, jdbcType=VARCHAR}
+        ORDER BY uc.create_time DESC
+    </select>
+</mapper>

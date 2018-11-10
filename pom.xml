@@ -239,7 +239,7 @@
                 <version>1.9.4</version>
             </dependency>
 
-            <!--lombok-->
+            <!--lombok代码自动生成-->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
