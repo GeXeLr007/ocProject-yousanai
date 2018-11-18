@@ -1,7 +1,7 @@
 package com.dulp.xyz.mapper;
 
 import com.dulp.xyz.pojo.UserCourseSection;
-import com.dulp.xyz.pojo.VO.UserCourseSectionVo;
+import com.dulp.xyz.pojo.VO.UserCourseSectionVO;
 
 import java.util.List;
 
@@ -18,5 +18,5 @@ public interface UserCourseSectionMapper {
 
     int updateByPrimaryKey(UserCourseSection record);
     
-    List<UserCourseSectionVo> queryPage(UserCourseSection record);
+    List<UserCourseSectionVO> queryPage(UserCourseSection record);
 }

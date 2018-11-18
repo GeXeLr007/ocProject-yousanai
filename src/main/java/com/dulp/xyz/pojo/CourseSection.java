@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "t_course_section")
-public class TCourseSection {
+public class CourseSection {
     @Id
     private Integer id;
 

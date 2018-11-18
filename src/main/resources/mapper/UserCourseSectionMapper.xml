@@ -177,7 +177,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <select id="queryPage" resultType="com.dulp.xyz.pojo.VO.UserCourseSectionVo">
+    <select id="queryPage" resultType="com.dulp.xyz.pojo.VO.UserCourseSectionVO">
         SELECT t.create_time, t.rate, t.status, c.name AS courseName, s.name AS sectionName
         FROM t_user_course_section t,
              t_course c,

@@ -5,7 +5,7 @@ import com.dulp.xyz.common.org.n3r.idworker.Sid;
 import com.dulp.xyz.common.util.*;
 import com.dulp.xyz.mapper.UserMapper;
 import com.dulp.xyz.pojo.User;
-import com.dulp.xyz.pojo.VO.LoginVo;
+import com.dulp.xyz.pojo.VO.LoginVO;
 import com.dulp.xyz.serivce.IUserService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class UserService implements IUserService {
 
 
     @Override
-    public IMoocJSONResult login(HttpServletRequest request, HttpServletResponse response, LoginVo loginVo) {
+    public IMoocJSONResult login(HttpServletRequest request, HttpServletResponse response, LoginVO loginVo) {
         String username = loginVo.getUsername();
         String formPass = loginVo.getPassword();
         //验证密码

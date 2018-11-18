@@ -1,9 +1,8 @@
 package com.dulp.xyz.serivce.impl;
 
 import com.dulp.xyz.mapper.UserCourseSectionMapper;
-import com.dulp.xyz.pojo.UserCollections;
 import com.dulp.xyz.pojo.UserCourseSection;
-import com.dulp.xyz.pojo.VO.UserCourseSectionVo;
+import com.dulp.xyz.pojo.VO.UserCourseSectionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +13,8 @@ public class UserCourseSectionService {
     @Autowired
     UserCourseSectionMapper userCourseSectionMapper;
     
-    public List<UserCourseSectionVo> queryPage(UserCourseSection queryEntity){
-        List<UserCourseSectionVo> items = userCourseSectionMapper.queryPage(queryEntity);
+    public List<UserCourseSectionVO> queryPage(UserCourseSection queryEntity){
+        List<UserCourseSectionVO> items = userCourseSectionMapper.queryPage(queryEntity);
         return items;
     }
     

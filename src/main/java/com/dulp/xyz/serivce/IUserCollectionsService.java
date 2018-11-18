@@ -1,7 +1,7 @@
 package com.dulp.xyz.serivce;
 
 import com.dulp.xyz.pojo.UserCollections;
-import com.dulp.xyz.pojo.VO.UserCollectionsVo;
+import com.dulp.xyz.pojo.VO.UserCollectionsVO;
 
 import java.util.List;
 
@@ -13,5 +13,5 @@ public interface IUserCollectionsService {
 
     void createSelectivity(UserCollections entity);
 
-    List<UserCollectionsVo> queryPage(UserCollections queryEntity);
+    List<UserCollectionsVO> queryPage(UserCollections queryEntity);
 }

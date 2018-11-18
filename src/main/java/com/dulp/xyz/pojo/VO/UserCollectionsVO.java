@@ -4,6 +4,6 @@ import com.dulp.xyz.pojo.UserCollections;
 import lombok.Data;
 
 @Data
-public class UserCollectionsVo extends UserCollections {
+public class UserCollectionsVO extends UserCollections {
     private String courseName;
 }

@@ -7,10 +7,10 @@ import com.dulp.xyz.common.util.IMoocJSONResult;
 import com.dulp.xyz.pojo.User;
 import com.dulp.xyz.pojo.UserCollections;
 import com.dulp.xyz.pojo.UserCourseSection;
-import com.dulp.xyz.pojo.VO.LoginVo;
-import com.dulp.xyz.pojo.VO.RegisterVo;
-import com.dulp.xyz.pojo.VO.UserCollectionsVo;
-import com.dulp.xyz.pojo.VO.UserCourseSectionVo;
+import com.dulp.xyz.pojo.VO.LoginVO;
+import com.dulp.xyz.pojo.VO.RegisterVO;
+import com.dulp.xyz.pojo.VO.UserCollectionsVO;
+import com.dulp.xyz.pojo.VO.UserCourseSectionVO;
 import com.dulp.xyz.serivce.IUserCollectionsService;
 import com.dulp.xyz.serivce.IUserService;
 import com.dulp.xyz.serivce.impl.UserCourseSectionService;
@@ -22,7 +22,6 @@ import org.springframework.boot.configurationprocessor.json.JSONException;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -48,14 +47,14 @@ public class UserController {
     UserCourseSectionService userCourseSectionService;
 
     @RequestMapping("/register")
-    public IMoocJSONResult register(@Valid RegisterVo registerVo) {
+    public IMoocJSONResult register(@Valid RegisterVO registerVo) {
         User user = new User();
         BeanUtils.copyProperties(registerVo, user);
         return userService.register(user);
     }
 
     @RequestMapping("/login")
-    public IMoocJSONResult doLogin(HttpServletRequest request, HttpServletResponse response, @Valid LoginVo loginVo) {
+    public IMoocJSONResult doLogin(HttpServletRequest request, HttpServletResponse response, @Valid LoginVO loginVo) {
         //登录
         return userService.login(request, response, loginVo);
     }
@@ -87,7 +86,7 @@ public class UserController {
     public IMoocJSONResult course(User user) {
         UserCourseSection queryEntity = new UserCourseSection();
         queryEntity.setUserId(user.getId());
-        List<UserCourseSectionVo> list = userCourseSectionService.queryPage(queryEntity);
+        List<UserCourseSectionVO> list = userCourseSectionService.queryPage(queryEntity);
         return IMoocJSONResult.ok(list);
     }
 
@@ -99,7 +98,7 @@ public class UserController {
     public IMoocJSONResult collect(User user) {
         UserCollections queryEntity = new UserCollections();
         queryEntity.setUserId(user.getId());
-        List<UserCollectionsVo> list = userCollectionsService.queryPage(queryEntity);
+        List<UserCollectionsVO> list = userCollectionsService.queryPage(queryEntity);
         return IMoocJSONResult.ok(list);
     }
 }

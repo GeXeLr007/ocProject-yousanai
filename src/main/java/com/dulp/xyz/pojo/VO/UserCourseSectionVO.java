@@ -4,7 +4,7 @@ import com.dulp.xyz.pojo.UserCourseSection;
 import lombok.Data;
 
 @Data
-public class UserCourseSectionVo extends UserCourseSection {
+public class UserCourseSectionVO extends UserCourseSection {
     /**
      * 课程名
      */

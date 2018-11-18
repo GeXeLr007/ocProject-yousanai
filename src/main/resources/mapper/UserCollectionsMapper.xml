@@ -145,7 +145,7 @@
         ORDER BY create_time DESC
     </select>
 
-    <select id="queryPage" resultType="com.dulp.xyz.pojo.VO.UserCollectionsVo">
+    <select id="queryPage" resultType="com.dulp.xyz.pojo.VO.UserCollectionsVO">
         SELECT uc.object_id, uc.create_time, c.name as course_name
         FROM t_user_collections uc,
              t_course c

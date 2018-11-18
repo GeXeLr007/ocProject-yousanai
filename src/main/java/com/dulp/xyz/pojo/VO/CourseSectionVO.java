@@ -1,24 +1,24 @@
 package com.dulp.xyz.pojo.VO;
 
-import com.dulp.xyz.pojo.TCourseSection;
+import com.dulp.xyz.pojo.CourseSection;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 课程章节
  */
-public class CourseSectionVO extends TCourseSection {
+public class CourseSectionVO extends CourseSection {
 	private static final long serialVersionUID = 180753077428934254L;
 
 	//小节
-	private List<TCourseSection> sections = new ArrayList<TCourseSection>();
+	private List<CourseSection> sections = new ArrayList<CourseSection>();
 
 	
-	public List<TCourseSection> getSections() {
+	public List<CourseSection> getSections() {
 		return sections;
 	}
 
-	public void setSections(List<TCourseSection> sections) {
+	public void setSections(List<CourseSection> sections) {
 		this.sections = sections;
 	}
 	

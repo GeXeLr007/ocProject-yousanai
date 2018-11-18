@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 @Data
-public class RegisterVo {
+public class RegisterVO {
 
     @NotNull
     private String username;
