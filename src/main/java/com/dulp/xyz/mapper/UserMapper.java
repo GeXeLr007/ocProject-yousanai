@@ -1,6 +1,7 @@
 package com.dulp.xyz.mapper;
 
 import com.dulp.xyz.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int deleteByPrimaryKey(String id);
@@ -17,5 +18,5 @@ public interface UserMapper {
 
     int checkUsername(String username);
 
-    User selectLogin(String username, String password);
+    User selectLogin(@Param("username") String username, @Param("password") String password);
 }

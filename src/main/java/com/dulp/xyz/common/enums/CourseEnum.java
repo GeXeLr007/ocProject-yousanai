@@ -12,7 +12,10 @@ public enum CourseEnum {
     ONSALE_NOT(0), //下架
 
     COLLECTION_YES(1),//课程已收藏
-    COLLECTION_NO(0);//课程未收藏
+    COLLECTION_NO(0),//课程未收藏
+
+    SECTION_ING(0),//课程已收藏
+    SECTION_END(1);//课程未收藏
 
     private Integer value;
 

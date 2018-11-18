@@ -86,7 +86,7 @@ public class UserController {
     public IMoocJSONResult course(User user) {
         UserCourseSection queryEntity = new UserCourseSection();
         queryEntity.setUserId(user.getId());
-        List<UserCourseSectionVO> list = userCourseSectionService.queryPage(queryEntity);
+        List<UserCourseSectionVO> list = userCourseSectionService.selectVOByUserId(queryEntity);
         return IMoocJSONResult.ok(list);
     }
 

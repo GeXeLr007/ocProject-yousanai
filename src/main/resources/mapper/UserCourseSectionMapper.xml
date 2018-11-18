@@ -177,7 +177,7 @@
         where id = #{id,jdbcType=INTEGER}
     </update>
 
-    <select id="queryPage" resultType="com.dulp.xyz.pojo.VO.UserCourseSectionVO">
+    <select id="selectVOByUserId" resultType="com.dulp.xyz.pojo.VO.UserCourseSectionVO">
         SELECT t.create_time, t.rate, t.status, c.name AS courseName, s.name AS sectionName
         FROM t_user_course_section t,
              t_course c,
@@ -187,4 +187,14 @@
           AND t.section_id = s.id
         ORDER BY t.status ASC, t.create_time DESC
     </select>
+
+    <select id="selectByUserIdAndOtherId" parameterType="map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from t_user_course_section
+        where user_id = #{userId,jdbcType=VARCHAR}
+        and course_id = #{courseId,jdbcType=INTEGER}
+        and section_id = #{sectionId,jdbcType=INTEGER}
+    </select>
+
 </mapper>
