@@ -22,4 +22,10 @@ public class ICourseSectionServiceImpl implements ICourseSectionService {
     public CourseSection getById(Integer id) {
         return tCourseSectionMapper.getById(id);
     }
+
+
+    @Override
+    public Integer selectCountByCourseId(Integer parentId){
+        return tCourseSectionMapper.selectCountByCourseId(parentId);
+    }
 }

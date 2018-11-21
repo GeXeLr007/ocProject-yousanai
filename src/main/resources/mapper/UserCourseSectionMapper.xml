@@ -178,14 +178,20 @@
     </update>
 
     <select id="selectVOByUserId" resultType="com.dulp.xyz.pojo.VO.UserCourseSectionVO">
-        SELECT t.create_time, t.rate, t.status, c.name AS courseName, s.name AS sectionName
+        SELECT t.update_time,
+               t.rate,
+               t.status,
+               t.course_id,
+               c.name    AS courseName,
+               c.picture as coursePicture,
+               s.name    AS sectionName
         FROM t_user_course_section t,
              t_course c,
              t_course_section s
         WHERE t.user_id = #{userId,jdbcType=VARCHAR}
           AND t.course_id = c.id
           AND t.section_id = s.id
-        ORDER BY t.status ASC, t.create_time DESC
+        ORDER BY t.update_time DESC
     </select>
 
     <select id="selectByUserIdAndOtherId" parameterType="map" resultMap="BaseResultMap">

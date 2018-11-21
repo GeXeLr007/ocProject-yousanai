@@ -8,7 +8,6 @@ import com.dulp.xyz.pojo.TCourse;
 import com.dulp.xyz.pojo.User;
 import com.dulp.xyz.pojo.VO.CourseSectionVO;
 import com.dulp.xyz.serivce.*;
-import com.dulp.xyz.serivce.impl.CourseSectionService;
 import com.dulp.xyz.serivce.impl.UserCourseSectionService;
 import io.swagger.annotations.Api;
 import org.apache.commons.lang.StringUtils;
@@ -31,7 +30,7 @@ public class CourseController {
     private TAuthUserService authUserService;
 
     @Autowired
-    private CourseSectionService courseSectionService;
+    private ICourseSectionService courseSectionService;
 
     @Autowired
     private UserCourseSectionService userCourseSectionService;

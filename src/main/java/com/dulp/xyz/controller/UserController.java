@@ -2,6 +2,7 @@ package com.dulp.xyz.controller;
 
 import com.dulp.xyz.common.access.AccessLimit;
 import com.dulp.xyz.common.exception.GlobalException;
+import com.dulp.xyz.common.util.CookieUtil;
 import com.dulp.xyz.common.util.HttpClientUtil;
 import com.dulp.xyz.common.util.IMoocJSONResult;
 import com.dulp.xyz.pojo.User;
@@ -42,9 +43,9 @@ public class UserController {
     private IUserCollectionsService userCollectionsService;
 
     @Autowired
-    IUserService userService;
+    private IUserService userService;
     @Autowired
-    UserCourseSectionService userCourseSectionService;
+    private UserCourseSectionService userCourseSectionService;
 
     @RequestMapping("/register")
     public IMoocJSONResult register(@Valid RegisterVO registerVo) {
@@ -57,6 +58,13 @@ public class UserController {
     public IMoocJSONResult doLogin(HttpServletRequest request, HttpServletResponse response, @Valid LoginVO loginVo) {
         //登录
         return userService.login(request, response, loginVo);
+    }
+
+    @RequestMapping("/logout")
+    @AccessLimit
+    public IMoocJSONResult doLogout(HttpServletRequest request, HttpServletResponse response) {
+        CookieUtil.delLoginToken(request,response);
+        return IMoocJSONResult.ok();
     }
 
     @RequestMapping("/openId")

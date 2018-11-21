@@ -24,6 +24,11 @@ public class CollectionsController{
     @Autowired
     private IUserCollectionsService userCollectionsService;
 
+    /**
+     * 添加或取消收藏
+     * @param courseId
+     * @return
+     */
     @RequestMapping(value = "/doCollection")
     @AccessLimit
     public IMoocJSONResult doCollection(Integer courseId, User user){

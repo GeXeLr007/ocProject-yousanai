@@ -1,6 +1,7 @@
 package com.dulp.xyz.common.access;
 
 import com.dulp.xyz.common.redis.RedisPoolUtil;
+import com.dulp.xyz.common.result.CodeMsg;
 import com.dulp.xyz.common.util.CookieUtil;
 import com.dulp.xyz.common.util.IMoocJSONResult;
 import com.dulp.xyz.common.util.JsonUtil;
@@ -37,7 +38,7 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
             String key = request.getRequestURI();
             if (needLogin) {
                 if (user == null) {
-                    render(response, "拦截器拦截，用户未登录");
+                    render(response, CodeMsg.SESSION_ERROR);
                     return false;
                 }
             }
@@ -45,12 +46,12 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
         return true;
     }
 
-    private void render(HttpServletResponse response, String errorMsg) throws Exception {
+    private void render(HttpServletResponse response, CodeMsg codeMsg) throws Exception {
         response.reset();//geelynote 这里要添加reset，否则报异常 getWriter() has already been called for this response.
         response.setCharacterEncoding("UTF-8");//geelynote 这里要设置编码，否则会乱码
         response.setContentType("application/json;charset=UTF-8");//geelynote 这里要设置返回值的类型，因为全部是json接口。
         PrintWriter out = response.getWriter();
-        out.print(JsonUtil.obj2String(IMoocJSONResult.errorMsg(errorMsg)));
+        out.print(JsonUtil.obj2String(IMoocJSONResult.error(codeMsg)));
         out.flush();
         out.close();//geelynote 这里要关闭
     }

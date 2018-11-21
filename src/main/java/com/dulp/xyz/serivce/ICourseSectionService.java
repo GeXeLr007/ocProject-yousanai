@@ -13,4 +13,9 @@ public interface ICourseSectionService {
      *根据id获取
      **/
     public CourseSection getById(Integer id);
+
+    /**
+     *根据id获取某一门课的小节数目
+     **/
+    Integer selectCountByCourseId(Integer parentId);
 }

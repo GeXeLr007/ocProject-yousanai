@@ -11,4 +11,6 @@ public interface TCourseSectionMapper extends MyMapper<CourseSection> {
      *根据id获取
      **/
     public CourseSection getById(Integer id);
+
+    Integer selectCountByCourseId(Integer parentId);
 }

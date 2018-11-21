@@ -146,7 +146,7 @@
     </select>
 
     <select id="queryPage" resultType="com.dulp.xyz.pojo.VO.UserCollectionsVO">
-        SELECT uc.object_id, uc.create_time, c.name as course_name
+        SELECT uc.object_id, uc.create_time, c.name as course_name, c.brief as course_brief, c.picture as course_picture
         FROM t_user_collections uc,
              t_course c
         WHERE uc.object_id = c.id

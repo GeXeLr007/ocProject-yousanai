@@ -86,8 +86,7 @@ public class PropertiesUtil {
     }
 
     public static String getProperty(String key,String defaultValue){
-        Properties prop = getDefaultProperties();
-        String value = prop.getProperty(key.trim());
+        String value = getProperty(key.trim());
         if(StringUtils.isBlank(value)){
             value = defaultValue;
         }

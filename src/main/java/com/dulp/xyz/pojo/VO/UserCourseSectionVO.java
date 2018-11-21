@@ -14,4 +14,14 @@ public class UserCourseSectionVO extends UserCourseSection {
      * 章节名
      */
     private String sectionName;
+
+    /**
+     * 课程图片地址
+     */
+    private String coursePicture;
+
+    /**
+     * 已学习百分比
+     */
+    private Integer studyPercent;
 }

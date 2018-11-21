@@ -38,10 +38,11 @@ public class CookieUtil {
     //e:A.happymmall.com/test       cookie:domain=A.happymmall.com;path="/test"
 
     public static void writeLoginToken(HttpServletResponse response, String token, User user) {
+        //延长cookie有效期的同时，延长redis的有效期
         RedisPoolUtil.setEx(token, JsonUtil.obj2String(user), SESSION_EXPIRE_TIME);
         Cookie ck = new Cookie(COOKIE_NAME, token);
 //        ck.setDomain(COOKIE_DOMAIN);
-        ck.setPath("/");//代表设置在根目录
+        ck.setPath("/");
         ck.setHttpOnly(true);
         //单位是秒。
         //如果这个maxage不设置的话，cookie就不会写入硬盘，而是写在内存。只在当前页面有效。
@@ -55,6 +56,8 @@ public class CookieUtil {
             for (Cookie ck : cks) {
                 if (StringUtils.equals(ck.getName(), COOKIE_NAME)) {
 //                    ck.setDomain(COOKIE_DOMAIN);
+                    //删除cookie的同时，删除redis
+                    RedisPoolUtil.del(ck.getValue());
                     ck.setPath("/");
                     ck.setMaxAge(0);//设置成0，代表删除此cookie。
                     response.addCookie(ck);
