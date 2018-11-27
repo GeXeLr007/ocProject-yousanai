@@ -9,6 +9,10 @@ public class User {
 
     private String openId;
 
+    private String mobile;
+
+    private String mail;
+
     public String getId() {
         return id;
     }
@@ -39,5 +43,21 @@ public class User {
 
     public void setOpenId(String openId) {
         this.openId = openId == null ? null : openId.trim();
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile == null ? null : mobile.trim();
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail == null ? null : mail.trim();
     }
 }

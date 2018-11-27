@@ -5,13 +5,11 @@ import com.dulp.xyz.common.exception.GlobalException;
 import com.dulp.xyz.common.util.CookieUtil;
 import com.dulp.xyz.common.util.HttpClientUtil;
 import com.dulp.xyz.common.util.IMoocJSONResult;
+import com.dulp.xyz.mapper.UserMapper;
 import com.dulp.xyz.pojo.User;
 import com.dulp.xyz.pojo.UserCollections;
 import com.dulp.xyz.pojo.UserCourseSection;
-import com.dulp.xyz.pojo.VO.LoginVO;
-import com.dulp.xyz.pojo.VO.RegisterVO;
-import com.dulp.xyz.pojo.VO.UserCollectionsVO;
-import com.dulp.xyz.pojo.VO.UserCourseSectionVO;
+import com.dulp.xyz.pojo.VO.*;
 import com.dulp.xyz.serivce.IUserCollectionsService;
 import com.dulp.xyz.serivce.IUserService;
 import com.dulp.xyz.serivce.impl.UserCourseSectionService;
@@ -44,8 +42,32 @@ public class UserController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private UserMapper userMapper;
+
     @Autowired
     private UserCourseSectionService userCourseSectionService;
+
+    @RequestMapping("/checkUsernameUpdate")
+    @AccessLimit
+    public IMoocJSONResult checkUsernameUpdate(User user,String username) {
+        int result = userMapper.checkUsernameUpdate(username,user.getId());
+        if (result != 0)
+            return IMoocJSONResult.errorMsg("用户名已存在");
+        return IMoocJSONResult.ok();
+    }
+
+    @RequestMapping("/updateUserInfo")
+    @AccessLimit
+    public IMoocJSONResult updateUserInfo(User user, @Valid UpdateUserVO updateUserVO) {
+        int result = userMapper.checkUsernameUpdate(updateUserVO.getUsername(),user.getId());
+        if (result != 0)
+            return IMoocJSONResult.errorMsg("用户名已存在");
+        BeanUtils.copyProperties(updateUserVO, user);
+        userMapper.updateByPrimaryKeySelective(user);
+        return IMoocJSONResult.ok(user);
+    }
 
     @RequestMapping("/register")
     public IMoocJSONResult register(@Valid RegisterVO registerVo) {
@@ -63,7 +85,7 @@ public class UserController {
     @RequestMapping("/logout")
     @AccessLimit
     public IMoocJSONResult doLogout(HttpServletRequest request, HttpServletResponse response) {
-        CookieUtil.delLoginToken(request,response);
+        CookieUtil.delLoginToken(request, response);
         return IMoocJSONResult.ok();
     }
 
