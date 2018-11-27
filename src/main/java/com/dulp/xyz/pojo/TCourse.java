@@ -10,7 +10,8 @@ import java.util.Date;
 public class TCourse {
     @Id
     private Integer id;
-
+    @Column(name = "include_picture")
+    private String includePicture;
     /**
      * 课程名称
      */
@@ -75,6 +76,23 @@ public class TCourse {
 
     private String picture;
 
+    public String getIncludePicture() {
+        return includePicture;
+    }
+
+    public void setIncludePicture(String includePicture) {
+        this.includePicture = includePicture;
+    }
+
+    public String getAuthCode() {
+        return authCode;
+    }
+
+    public void setAuthCode(String authCode) {
+        this.authCode = authCode;
+    }
+
+    private String authCode;
     /**
      * 未推荐（0）、推荐（1）
      */

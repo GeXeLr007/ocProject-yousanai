@@ -22,7 +22,11 @@ public class TAuthUserServiceImpl implements TAuthUserService {
 
    @Autowired
    private Sid sid;
-
+    @Override
+    public TAuthUser getById(Integer teacherId) {
+        TAuthUser tAuthUser =tAuthUserMapper.getById(teacherId);
+        return tAuthUser;
+    }
     @Transactional(propagation = Propagation.SUPPORTS)
     @Override
     public boolean queryUsernameIsExist(String realname) {

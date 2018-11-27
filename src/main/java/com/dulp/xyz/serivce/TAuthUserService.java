@@ -5,6 +5,7 @@ import com.dulp.xyz.pojo.TAuthUser;
 import java.util.List;
 
 public interface TAuthUserService {
+    public TAuthUser getById(Integer teacherId);
     public boolean queryUsernameIsExist(String realname);
     /*
      * 保存用户对象

@@ -14,4 +14,5 @@ public interface TAuthUserMapper extends MyMapper<TAuthUser> {
 
     public List<TAuthUser> queryRecomd();
     public TAuthUser getByUsername(String username);
+    public TAuthUser getById(Integer teacherId);
 }

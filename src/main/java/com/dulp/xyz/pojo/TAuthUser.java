@@ -93,7 +93,18 @@ public class TAuthUser {
      * 签名
      */
     private String sign;
+    public String getJJsign() {
+        return JJsign;
+    }
 
+    public void setJJsign(String JJsign) {
+        this.JJsign = JJsign;
+    }
+
+    /**
+     * 签名
+     */
+    private String JJsign;
     /**
      * 微信公众号openid
      */

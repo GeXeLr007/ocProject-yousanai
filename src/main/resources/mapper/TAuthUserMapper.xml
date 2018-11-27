@@ -42,6 +42,12 @@
 		city, district, weight, create_time, create_user, update_time, update_user,
 		del, id
 	</sql>
+  <select id="getById" parameterType="java.lang.Integer" resultType="com.dulp.xyz.pojo.TAuthUser">
+    SELECT
+    <include refid="All_Columns"  />
+    FROM t_auth_user
+    WHERE id = #{id, jdbcType=INTEGER}
+  </select>
   <select id="queryRecomd" parameterType="com.dulp.xyz.pojo.TAuthUser" resultMap="BaseResultMap">
     SELECT
     <include refid="All_Columns" />
