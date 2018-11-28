@@ -7,7 +7,7 @@
     <groupId>ocProject.YouSanAi</groupId>
     <artifactId>ocProject-YouSanAi</artifactId>
     <version>1.0-SNAPSHOT</version>
-        <packaging>war</packaging>
+        <packaging>jar</packaging>
         <name>ocProject-YouSanAi</name>
         <description>Demo project for Spring Boot</description>
 
@@ -270,6 +270,7 @@
         </dependencies>
 
         <build>
+            <finalName>ocproject</finalName>
             <plugins>
                 <plugin>
                     <groupId>org.springframework.boot</groupId>

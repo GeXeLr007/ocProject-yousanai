@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -28,10 +29,13 @@ public class UserCourseSectionService {
         //统计每个课程已经学习的小节数目
         for (UserCourseSectionVO item :
                 items) {
-            if (item.getStatus().equals(CourseEnum.SECTION_END.value())) {
-                if (!curSectionCount.containsKey(item.getCourseId())) {
-                    curSectionCount.put(item.getCourseId(), 1);
-                } else {
+            if (!curSectionCount.containsKey(item.getCourseId())) {
+                curSectionCount.put(item.getCourseId(), 0);
+                if (item.getStatus().equals(CourseEnum.SECTION_END.value())) {
+                    curSectionCount.put(item.getCourseId(), curSectionCount.get(item.getCourseId()) + 1);
+                }
+            } else {
+                if (item.getStatus().equals(CourseEnum.SECTION_END.value())) {
                     curSectionCount.put(item.getCourseId(), curSectionCount.get(item.getCourseId()) + 1);
                 }
             }
@@ -56,6 +60,7 @@ public class UserCourseSectionService {
         if (userCourseSection != null) {
             if (currentTime != null) {
                 userCourseSection.setRate(currentTime.intValue());
+                userCourseSection.setUpdateTime(new Date());
                 userCourseSectionMapper.updateByPrimaryKeySelective(userCourseSection);
             }
         } else {
